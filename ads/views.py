@@ -78,8 +78,10 @@ class CategoryDetailView(DetailView):
     model = Category
 
     def get(self, request, *args, **kwargs):
-        category = self.get_object()
-
+        try:
+            category = self.get_object()
+        except:
+            return JsonResponse({"error": "Not found"}, status=404)
         return JsonResponse({
             "id": category.id,
             "name": category.name,
@@ -132,8 +134,10 @@ class AdDetailView(DetailView):
     model = Ad
 
     def get(self, request, *args, **kwargs):
-        ad = self.get_object()
-
+        try:
+            ad = self.get_object()
+        except:
+            return JsonResponse({"error": "Not found"}, status=404)
         return JsonResponse({
             "id": ad.id,
             "name": ad.name,
